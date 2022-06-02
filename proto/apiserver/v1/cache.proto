@@ -2,13 +2,20 @@ syntax = "proto3";
 
 package proto;
 
-// go:generate protoc -I. --go_out=plugins=grpc:$GOPATH/src cache.proto
+// go:generate protoc -I. --go_out=plugins=grpc:. cache.proto
 
 option go_package = "github.com/opsdata/elmt-api/proto/apiserver/v1";
 
 // Cache implements a cache rpc service.
 service Cache{
 	rpc ListSecrets(ListSecretsRequest) returns (ListSecretsResponse) {}
+    rpc ListPolicies(ListPoliciesRequest) returns (ListPoliciesResponse) {}
+}
+
+// ListSecretsRequest defines ListSecrets request struct.
+message ListSecretsRequest {
+    optional int64 offset = 1;
+    optional int64 limit = 2;
 }
 
 // SecretInfo contains secret details.
@@ -23,14 +30,29 @@ message SecretInfo {
     string updated_at  = 8;
 }
 
-// ListSecretsRequest defines ListSecrets request struct.
-message ListSecretsRequest {
-    optional int64 offset = 1;
-    optional int64 limit = 2;
-}
-
 // ListSecretsResponse defines ListSecrets response struct.
 message ListSecretsResponse {
     int64 total_count = 1;
     repeated  SecretInfo items = 2;
+}
+
+// ListPoliciesRequest defines ListPolicies request struct.
+message ListPoliciesRequest {
+    optional int64 offset = 1;
+    optional int64 limit = 2;
+}
+
+// PolicyInfo contains policy details.
+message PolicyInfo {
+    string policy_name = 1;
+    string username   = 2;
+    string policy_str = 3;
+    string policy_shadow = 4;
+    string created_at = 5;
+}
+
+// ListPoliciesResponse defines ListPolicies response struct.
+message ListPoliciesResponse {
+    int64 total_count = 1;
+    repeated  PolicyInfo items = 2;
 }
