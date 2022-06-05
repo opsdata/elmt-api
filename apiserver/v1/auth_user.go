@@ -15,12 +15,13 @@ type User struct {
 	// Standard object metadata.
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	UID       int       `json:"uid"                  gorm:"column:uid"         validate:"required"`
-	Username  string    `json:"username"             gorm:"column:username"    validate:"required,min=1,max=30"`
-	Password  string    `json:"password"             gorm:"column:password"    validate:"required"`
-	Activated int       `json:"activated"            gorm:"column:activated"   validate:"omitempty"`
-	IsAdmin   int       `json:"is_admin"             gorm:"column:is_admin"    validate:"omitempty"`
-	LoginedAt time.Time `json:"logined_at,omitempty" gorm:"column:logined_at"  validate:"omitempty"`
+	UID         int       `json:"uid"                  gorm:"column:uid"         validate:"required"`
+	Username    string    `json:"username"             gorm:"column:username"    validate:"required,min=1,max=30"`
+	Password    string    `json:"password"             gorm:"column:password"    validate:"required"`
+	Activated   int       `json:"activated"            gorm:"column:activated"   validate:"omitempty"`
+	IsAdmin     int       `json:"is_admin"             gorm:"column:is_admin"    validate:"omitempty"`
+	LoginedAt   time.Time `json:"logined_at,omitempty" gorm:"column:logined_at"  validate:"omitempty"`
+	TotalPolicy int64     `json:"totalPolicy"          gorm:"-"                  validate:"omitempty"`
 }
 
 // UserList is the whole list of all users which have been stored in stroage.
