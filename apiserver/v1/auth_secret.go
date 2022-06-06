@@ -4,6 +4,7 @@ import (
 	"gorm.io/gorm"
 
 	metav1 "github.com/opsdata/common-base/pkg/meta/v1"
+
 	"github.com/opsdata/common-base/pkg/util/idutil"
 )
 
@@ -13,11 +14,13 @@ type Secret struct {
 	metav1.ObjectMeta `       json:"metadata,omitempty"`
 
 	Username    string `json:"username"    gorm:"column:username"    validate:"omitempty"`
-	SecretName  string `json:"secret_name" gorm:"column:secret_name" validate:"omitempty"`
 	SecretID    string `json:"secret_id"   gorm:"column:secret_id"   validate:"omitempty"`
 	SecretKey   string `json:"secret_key"  gorm:"column:secret_key"  validate:"omitempty"`
 	Expires     int64  `json:"expires"     gorm:"column:expires"     validate:"omitempty"`
 	Description string `json:"description" gorm:"column:description" validate:"description"`
+
+	// Deprecated
+	SecretName string `json:"secret_name" gorm:"column:secret_name" validate:"omitempty"`
 }
 
 // SecretList is the whole list of all secrets which have been stored in stroage.

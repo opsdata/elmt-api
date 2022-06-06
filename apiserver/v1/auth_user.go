@@ -5,8 +5,9 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/opsdata/common-base/pkg/auth"
 	metav1 "github.com/opsdata/common-base/pkg/meta/v1"
+
+	"github.com/opsdata/common-base/pkg/auth"
 	"github.com/opsdata/common-base/pkg/util/idutil"
 )
 
@@ -16,12 +17,14 @@ type User struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	UID         int       `json:"uid"                  gorm:"column:uid"         validate:"required"`
-	Username    string    `json:"username"             gorm:"column:username"    validate:"required,min=1,max=30"`
 	Password    string    `json:"password"             gorm:"column:password"    validate:"required"`
 	Activated   int       `json:"activated"            gorm:"column:activated"   validate:"omitempty"`
 	IsAdmin     int       `json:"is_admin"             gorm:"column:is_admin"    validate:"omitempty"`
 	LoginedAt   time.Time `json:"logined_at,omitempty" gorm:"column:logined_at"  validate:"omitempty"`
 	TotalPolicy int64     `json:"totalPolicy"          gorm:"-"                  validate:"omitempty"`
+
+	// Deprecated
+	Username string `json:"username" gorm:"column:username"    validate:"required,min=1,max=30"`
 }
 
 // UserList is the whole list of all users which have been stored in stroage.
@@ -31,23 +34,6 @@ type UserList struct {
 	metav1.ListMeta `json:",inline"`
 
 	Items []*User `json:"items"`
-}
-
-// TODO:
-// Legacy userInfo struct for ELMT frontent.
-type UserInfo struct {
-	ID               uint32   `json:"id"`
-	Login            string   `json:"login"`
-	Email            string   `json:"email"`
-	Activated        bool     `json:"activated"`
-	CreatedBy        string   `json:"createdBy"`
-	LastModifiedBy   string   `json:"lastModifiedBy"`
-	LastModifiedDate string   `json:"lastModifiedDate"`
-	Authorities      []string `json:"authorities"`
-	Apps             []string `json:"apps"`
-	Orgs             []string `json:"orgs"`
-	Pcss             []string `json:"pcss"`
-	Isvs             []string `json:"isvs"`
 }
 
 // TableName maps to postgresql table name.
@@ -65,4 +51,21 @@ func (u *User) Compare(pwd string) (err error) {
 func (u *User) AfterCreate(tx *gorm.DB) error {
 	u.InstanceID = idutil.GetInstanceID(u.ID, "user-")
 	return tx.Save(u).Error
+}
+
+// TODO:
+// Legacy userInfo struct for ELMT frontent.
+type UserInfo struct {
+	ID               uint32   `json:"id"`
+	Login            string   `json:"login"`
+	Email            string   `json:"email"`
+	Activated        bool     `json:"activated"`
+	CreatedBy        string   `json:"createdBy"`
+	LastModifiedBy   string   `json:"lastModifiedBy"`
+	LastModifiedDate string   `json:"lastModifiedDate"`
+	Authorities      []string `json:"authorities"`
+	Apps             []string `json:"apps"`
+	Orgs             []string `json:"orgs"`
+	Pcss             []string `json:"pcss"`
+	Isvs             []string `json:"isvs"`
 }
