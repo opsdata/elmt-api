@@ -20,7 +20,7 @@ type Secret struct {
 	Description string `json:"description" gorm:"column:description" validate:"description"`
 
 	// Deprecated
-	SecretName string `json:"secret_name" gorm:"column:secret_name" validate:"omitempty"`
+	// SecretName string `json:"secret_name" gorm:"column:secret_name" validate:"omitempty"`
 }
 
 // SecretList is the whole list of all secrets which have been stored in stroage.

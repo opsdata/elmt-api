@@ -21,14 +21,15 @@ type Policy struct {
 	// Standard object's metadata.
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Username string `json:"username" gorm:"column:username" validate:"omitempty"` // The user of the policy
+	// The user of the policy
+	Username string `json:"username" gorm:"column:username" validate:"omitempty"`
 	// AuthzPolicy policy, will not be stored in db.
 	Policy AuthzPolicy `json:"policy,omitempty" gorm:"-" validate:"omitempty"`
 	// The ladon policy content, just a string format of ladon.DefaultPolicy. DO NOT modify directly.
 	PolicyShadow string `json:"-" gorm:"column:policy_shadow" validate:"omitempty"`
 
 	// Deprecated
-	PolicyName string `json:"policy_name" gorm:"column:policy_name" validate:"omitempty"`
+	// PolicyName string `json:"policy_name" gorm:"column:policy_name" validate:"omitempty"`
 }
 
 // PolicyList is the whole list of all policies which have been stored in stroage.

@@ -24,7 +24,7 @@ type User struct {
 	TotalPolicy int64     `json:"totalPolicy"          gorm:"-"                  validate:"omitempty"`
 
 	// Deprecated
-	Username string `json:"username" gorm:"column:username"    validate:"required,min=1,max=30"`
+	// Username string `json:"username" gorm:"column:username"    validate:"required,min=1,max=30"`
 }
 
 // UserList is the whole list of all users which have been stored in stroage.
