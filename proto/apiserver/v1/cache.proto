@@ -20,14 +20,14 @@ message ListSecretsRequest {
 
 // SecretInfo contains secret details.
 message SecretInfo {
-    string secret_name = 1;
+    string name = 1;
     string secret_id   = 2;
-    string username    = 3;
-    string secret_key  = 4;
-    int64  expires     = 5;
+    string username = 3;
+    string secret_key = 4;
+    int64  expires = 5;
     string description = 6;
-    string created_at  = 7;
-    string updated_at  = 8;
+    string created_at = 7;
+    string updated_at = 8;
 }
 
 // ListSecretsResponse defines ListSecrets response struct.
@@ -44,8 +44,8 @@ message ListPoliciesRequest {
 
 // PolicyInfo contains policy details.
 message PolicyInfo {
-    string policy_name = 1;
-    string username   = 2;
+    string name = 1;
+    string username = 2;
     string policy_str = 3;
     string policy_shadow = 4;
     string created_at = 5;
